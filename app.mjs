@@ -21,14 +21,7 @@ app.use("/questions", questionRouter);
 app.get("/test", (req, res) => {
   return res.json("Server API is working 🚀");
 });
-// app.get("/demo", async (req, res) => {
-//   try {
-//     const result = await pool.query("select * from questions");
-//     return res.status(200).json({ data: result.rows });
-//   } catch (e) {
-//     return res.status(500).json({ message: e });
-//   }
-// });
+
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);
