@@ -103,7 +103,6 @@ questionRouter.get("/:questionId", async (req, res) => {
 //***************ห้ามสลับ***************** */
 // _______________________________
 
-
 //_______________________________
 //สร้างโพส
 questionRouter.post("/", async (req, res) => {
@@ -188,10 +187,30 @@ questionRouter.delete("/:questionId", async (req, res) => {
   }
 });
 
-/** DEMO Body
- * {
-  "title": "question #999",
-  "description": "Morbi non quam nec dui luctus rutrum. Nulla tellus.",
-  "category": "Software",
-}
- */
+//____________________________________________________________________________
+//สำหรับ answer
+
+// questionRouter.get("/:questionId/answers", async (req, res) => {
+//   const questionIdFromClient = req.params.questionId;
+//   try {
+//     const result = await pool.query(
+//     `
+//     SELECT answers.id, content
+//     FROM answers
+//     INNER JOIN questions
+//     ON answers.question_id = questions.id
+//     WHERE questions.id=$1;
+//     `,
+//       [questionIdFromClient]
+//     );
+//     if (!result.rows[0]) {
+//       return res.status(404).json({ message: "Question not found." });
+//     } else {
+//       return res.status(200).json({ data: result.rows });
+//     }
+//   } catch (e) {
+//     return res
+//       .status(500)
+//       .json({ message: `Could not get answer ${e.message}` });
+//   }
+// });

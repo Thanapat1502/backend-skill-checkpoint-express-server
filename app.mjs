@@ -1,6 +1,7 @@
 import express from "express";
 import pool from "./utils/db.mjs";
 import { questionRouter } from "./router/questionRouter.mjs";
+import { answerRouter } from "./router/answerRouter.mjs";
 /**
  *requerment
   + ผู้ใช้งานสามารถสร้างคำถามได้ >> post
@@ -17,11 +18,11 @@ const port = 4000;
 
 app.use(express.json());
 app.use("/questions", questionRouter);
+app.use("/questions", answerRouter);
 
 app.get("/test", (req, res) => {
   return res.json("Server API is working 🚀");
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);
