@@ -1,31 +1,60 @@
 # An Express Server Template
 
-# todo
+# API for Qoura-likes backend application
 
-#
+_Description_
+This is API back-end project build to reconstruct Qoura web application, where client can read and create Questions and Answers.
 
-### Optional Software Requirements
+**The key feature inclueds**
+_For Questions:_
 
-# DONE - ผู้ใช้งานสามารถที่จะค้นหาคำถามจากหัวข้อ หรือหมวดหมู่ได้ DONE
+- Users can create questions.
+- A question will have a title and a description.
+- Questions will be categorized, such as Software, Food, Travel, Science, etc.
+- Users can view all questions.
+- Users can view each individual question by its ID.
+- Users can edit the title or description of a question.
+- Users can delete a question.
+- Users can search for questions by title or category.
 
-# DONE - ผู้ใช้งานสามารถสร้างคำตอบของคำถามนั้นได้
+  _For Answers:_
 
-# DONE - คำตอบจะเป็นข้อความยาวๆ ไม่เกิน 300 ตัวอักษร
+- Users can create an answer for a specific question.
+- An answer will be a long text, no more than 300 characters.
+- Users can view the answer to each question.
+- Users can delete an answer.
+  When a question is deleted, its corresponding answers will also be deleted.
 
-# DONE - ผู้ใช้งานสามารถที่จะดูคำตอบของคำถามแต่ละอันได้ DONE
+  _For Voting:_
 
-# DONE - ผู้ใช้งานสามารถที่จะลบคำถามได้
+- Users can click "Agree" or "Disagree" on an answer.
+- The number of people agreeing or disagreeing can be shown as + and -.
+- Users can also agree or disagree with a question itself.
 
-# DONE - เมื่อลบคำถามออก คำตอบก็จะถูกลบตามคำถามนั้นๆ ไปด้วย
+**How to Install and Run the Project**
+_package_
+1.express
+2.nodemon
+3.dotenv
+4.pg
+5.swagger-jsdoc
+6.swagger-ui-express
 
-# DONE - ผู้ใช้งานสามารถกดปุ่มเห็นด้วย หรือไม่เห็นด้วยกับคำตอบได้ DONE
+**API list**
+Metod | Endpoint | Description
+-----| -----| -----|
+1.POST | /questions | Create a new question.
+2.GET | /questions | Get all questions.
+3.GET | /questions/:questionId | Get a question by ID.
+4.PUT | /questions/:questionId | Update a question by ID.
+5.DELETE | /questions/:questionId | Delete a question by ID.
+6.GET | /questions/search | Search questions by title or category.
+7.POST | /questions/:questionId/answers | Create an answer for a question.
+8.GET | /questions/:questionId/answers | Get answers for a question.
+9.DELETE | /questions/:questionId/answers | Delete answers for a question.
+10.POST | /questions/:questionId/vote | Vote on a question.
+11.POST | /answers/:answerId/vote | Vote on an answer.
 
-# DONE - จำนวนคนที่เห็นด้วยสามารถเป็น + และเป็น - ได้ DONE
+# License
 
-# DONE - ผู้ใช้งานสามารถกดเห็นด้วยหรือไม่เห็นด้วยกับคำถามได้ด้วยเช่นกัน DONE
-
-# - สร้าง API Documentation ด้วย Swagger ([ดูตัวอย่างการใช้งาน Swagger](https://www.# youtube.com/watch?v=apouPYPh_as&ab_channel=BeyondHelloWorld))
-
-# - [Swagger Package บน NPM](https://github.com/scottie1984/swagger-ui-express)
-
-# - เขียนอธิบายผลงานใน [README.md](http://README.md) ([ดูวิธีการเขียน README] #(https:// www.freecodecamp.org/news/how-to-write-a-good-readme-file/))#
+This project is part of Techup Bootcamp, for Education and Experiment.

@@ -14,8 +14,6 @@ import { voteRouter } from "./router/voteRouter.mjs";
   + ผู้ใช้งานสามารถที่จะลบคำถามได้ >> delete ||------------------------------------- DONE
  */
 
-
-
 const app = express();
 const port = 4000;
 
