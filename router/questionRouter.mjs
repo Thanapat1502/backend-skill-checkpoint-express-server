@@ -1,5 +1,7 @@
 import { Router } from "express";
 import pool from "../utils/db.mjs";
+import { clientPostValidation } from "../middleware/question.validation.mjs";
+import { queryParamsValidation } from "../middleware/question.validation.mjs";
 export const questionRouter = Router();
 //-----DEMO ROUTER--------
 questionRouter.get("/demo", async (req, res) => {
@@ -10,20 +12,10 @@ questionRouter.get("/demo", async (req, res) => {
     return res.status(500).json({ message: e.message });
   }
 });
-//-----WORKS FINE---------
-/**
- *requerment
-  + ผู้ใช้งานสามารถสร้างคำถามได้ >> post OK
-    - คำถามจะมีหัวข้อ และคำอธิบาย  //title, description OK
-    - คำถามจะมีหมวดหมู่กำกับ เช่น Software, Food, Travel, Science, Etc. //category KO
-  + ผู้ใช้งานสามารถที่จะดูคำถามทั้งหมดได้ >> get OK
-  + ผู้ใช้งานสามารถที่จะดูคำถามแต่ละอันได้ ด้วย Id ของคำถามได้ >> get by params OK
-  + ผู้ใช้งานสามารถที่จะแก้ไขหัวข้อ หรือคำอธิบายของคำถามได้ >> put
-  + ผู้ใช้งานสามารถที่จะลบคำถามได้ >> delete
- */
+
 //______________________________________Begin Code --- vvvvvvvv____________________
 
-//ดูโพสทั้งหมด
+//ดูโพสทั้งหมด DONE
 questionRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query(`
@@ -37,8 +29,8 @@ questionRouter.get("/", async (req, res) => {
 });
 //________________________________
 //***************ห้ามสลับ***************** */
-// เซิร์จหาโพส
-questionRouter.get("/search", async (req, res) => {
+// เซิร์จหาโพส +++++MAKE VALIDATION FOR 400 DONE
+questionRouter.get("/search", queryParamsValidation, async (req, res) => {
   const category = req.query.category;
   const keyword = req.query.keyword;
 
@@ -72,7 +64,7 @@ questionRouter.get("/search", async (req, res) => {
   }
 });
 
-//ดูโพสตาม id
+//ดูโพสตาม id DONE
 questionRouter.get("/:questionId", async (req, res) => {
   const questionIdFromClient = req.params.questionId;
 
@@ -103,9 +95,8 @@ questionRouter.get("/:questionId", async (req, res) => {
 //***************ห้ามสลับ***************** */
 // _______________________________
 
-//_______________________________
-//สร้างโพส
-questionRouter.post("/", async (req, res) => {
+//สร้างโพส DONE
+questionRouter.post("/", clientPostValidation, async (req, res) => {
   const newQuestion = {
     ...req.body,
   };
@@ -125,9 +116,9 @@ questionRouter.post("/", async (req, res) => {
       .json({ message: `Sever could not create Qusetion: ${e.message}` });
   }
 });
-//_______________________________
-//แก้ไขโพส
-questionRouter.put("/:questionId", async (req, res) => {
+
+//แก้ไขโพส DONE
+questionRouter.put("/:questionId", clientPostValidation, async (req, res) => {
   const questionIdFromClient = req.params.questionId;
   const updatedQuestion = { ...req.body };
   try {
@@ -159,8 +150,8 @@ questionRouter.put("/:questionId", async (req, res) => {
     });
   }
 });
-//_______________________________
-//ลบโพส
+
+//ลบโพส DONE 
 questionRouter.delete("/:questionId", async (req, res) => {
   const questionIdFromClient = req.params.questionId;
   try {
@@ -186,31 +177,3 @@ questionRouter.delete("/:questionId", async (req, res) => {
       .json({ message: `Unable to delete question. ${e.message}` });
   }
 });
-
-//____________________________________________________________________________
-//สำหรับ answer
-
-// questionRouter.get("/:questionId/answers", async (req, res) => {
-//   const questionIdFromClient = req.params.questionId;
-//   try {
-//     const result = await pool.query(
-//     `
-//     SELECT answers.id, content
-//     FROM answers
-//     INNER JOIN questions
-//     ON answers.question_id = questions.id
-//     WHERE questions.id=$1;
-//     `,
-//       [questionIdFromClient]
-//     );
-//     if (!result.rows[0]) {
-//       return res.status(404).json({ message: "Question not found." });
-//     } else {
-//       return res.status(200).json({ data: result.rows });
-//     }
-//   } catch (e) {
-//     return res
-//       .status(500)
-//       .json({ message: `Could not get answer ${e.message}` });
-//   }
-// });

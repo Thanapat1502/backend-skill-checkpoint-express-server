@@ -14,17 +14,7 @@ import { voteRouter } from "./router/voteRouter.mjs";
   + ผู้ใช้งานสามารถที่จะลบคำถามได้ >> delete ||------------------------------------- DONE
  */
 
-/** TODO
- * MORNIG_________________
- * ทำ API สำหรับ vote คำถาม ||------------------------------- DONE
- * ทำ API สำหรับ vote คำตอบ ||------------------------------ DONE
- * ทำ MW User Validation
- * เพิ่ม ERROR STATUS
- * 
- * AFTERNOON__________________
- * เช็ค optional requrement
- *
- */
+
 
 const app = express();
 const port = 4000;
