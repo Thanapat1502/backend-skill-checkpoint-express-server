@@ -4,6 +4,7 @@ import { clientPostValidation } from "../middleware/question.validation.mjs";
 import { queryParamsValidation } from "../middleware/question.validation.mjs";
 export const questionRouter = Router();
 //-----DEMO ROUTER--------
+
 questionRouter.get("/demo", async (req, res) => {
   try {
     const result = await pool.query("select * from questions");
@@ -151,7 +152,7 @@ questionRouter.put("/:questionId", clientPostValidation, async (req, res) => {
   }
 });
 
-//ลบโพส DONE 
+//ลบโพส DONE
 questionRouter.delete("/:questionId", async (req, res) => {
   const questionIdFromClient = req.params.questionId;
   try {
@@ -177,3 +178,148 @@ questionRouter.delete("/:questionId", async (req, res) => {
       .json({ message: `Unable to delete question. ${e.message}` });
   }
 });
+
+/**
+ * @swagger
+ * /questions/demo:
+ *   get:
+ *     summary: Get demo questions
+ *     responses:
+ *       200:
+ *         description: A list of demo questions
+ */
+
+/**
+ * @swagger
+ * /questions:
+ *   get:
+ *     summary: Get all questions
+ *     responses:
+ *       200:
+ *         description: A list of questions
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /questions/search:
+ *   get:
+ *     summary: Search questions by category and keyword
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: keyword
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of questions
+ *       400:
+ *         description: Invalid request
+ *       404:
+ *         description: Requested question not found
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /questions/{questionId}:
+ *   get:
+ *     summary: Get a question by ID
+ *     parameters:
+ *       - in: path
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A question object
+ *       404:
+ *         description: Question not found
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /questions:
+ *   post:
+ *     summary: Create a new question
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               category:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Question created successfully
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /questions/{questionId}:
+ *   put:
+ *     summary: Update a question by ID
+ *     parameters:
+ *       - in: path
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               category:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Update Question successfully
+ *       404:
+ *         description: Question not found
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /questions/{questionId}:
+ *   delete:
+ *     summary: Delete a question by ID
+ *     parameters:
+ *       - in: path
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       201:
+ *         description: Question post has been deleted successfully
+ *       404:
+ *         description: Question not found
+ *       500:
+ *         description: Server error
+ */
